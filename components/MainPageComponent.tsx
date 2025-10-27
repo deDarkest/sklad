@@ -299,7 +299,7 @@ export default function MainPageComponent({
 
     const [ordersByName, setOrdersByName] = useState([] as any)
 
-    const [sheets, setSheets] = useState(['Паллеты фурнитура', 'Гола', 'Цоколь', 'Длинномер'] as any)
+    const [sheets, setSheets] = useState(['Паллеты фурнитура', 'Гола', 'Цоколь', 'Длинномер', 'Паллеты мойки/техника', 'Отдельно стоящие', 'Столешницы/панели', 'Кромка'] as any)
     const [orders, setOrders] = useState([] as any)
     const [rows, setRows] = useState([] as any)
     const [selectRow, setSelectRow] = useState(-1)

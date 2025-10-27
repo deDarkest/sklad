@@ -16,7 +16,7 @@ export default function PalleteComponent({isValid, palletes, excel, rows, orders
         { uid: 'palletenumber', name: '№ паллето-места' },
     ]*/
 
-    const [sheets, setSheets] = useState(['Паллеты фурнитура', 'Гола', 'Цоколь', 'Длинномер'] as any)
+    const [sheets, setSheets] = useState(['Паллеты фурнитура', 'Гола', 'Цоколь', 'Длинномер', 'Паллеты мойки/техника', 'Отдельно стоящие', 'Столешницы/панели', 'Кромка'] as any)
 
     const columns = [
         { uid: 'order', name: '№ заказа' },
@@ -24,6 +24,10 @@ export default function PalleteComponent({isValid, palletes, excel, rows, orders
         { uid: 'sheet-Гола', name: 'Гола' },
         { uid: 'sheet-Цоколь', name: 'Цоколь' },
         { uid: 'sheet-Длинномер', name: 'Длинномер' },
+        { uid: 'sheet-Паллеты мойки/техника', name: 'Паллеты мойки/техника' },
+        { uid: 'sheet-Отдельно стоящие', name: 'Отдельно стоящие' },
+        { uid: 'sheet-Столешницы/панели', name: 'Столешницы/панели' },
+        { uid: 'sheet-Кромка', name: 'Кромка' },
         { uid: 'all', name: 'Общее' },
     ]
 

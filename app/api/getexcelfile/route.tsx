@@ -8,8 +8,7 @@ export const dynamic = 'force-dynamic';
 import * as XLSX from 'xlsx'
 import { ObjectId } from 'mongodb'
 
-const acceptedWH = ['Паллеты фурнитура', 'Гола', 'Цоколь', 'Длинномер'] as any
-const rejectedWH = ['Паллеты мойки/техника', 'Отдельно стоящие', 'Столешницы/панели', 'Кромка'] as any
+const acceptedWH = ['Паллеты фурнитура', 'Гола', 'Цоколь', 'Длинномер', 'Паллеты мойки/техника', 'Отдельно стоящие', 'Столешницы/панели', 'Кромка'] as any
 
 export const GET = async (request: Request) => {
 

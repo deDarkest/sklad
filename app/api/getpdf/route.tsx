@@ -150,7 +150,7 @@ export const GET = async (request: Request) => {
             font: customFont,
             color: rgb(0, 0, 0)
         })
-        firstPage.drawText(row.structure['Организация'] && row.structure['Организация'] != '' ? row.structure['Организация'].split(' ООО')[0] : excel.for, {
+        firstPage.drawText(/*row.structure['Организация'] && row.structure['Организация'] != '' ? row.structure['Организация'].split(' ООО')[0] : excel.for*/'', {
             x: width / 2 - 100,
             y: height / 2 + 16,
             size: 36,

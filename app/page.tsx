@@ -27,7 +27,8 @@ async function getServerSideProps() {
       await connectToDB()
       
 
-      const token = cookies().get("token")
+      const cookieStore = await cookies()
+      const token = cookieStore.get("token")
       //console.log({token})
       if (!token || !token.value) {
         throw({error: 'not token'})
@@ -95,11 +96,13 @@ const signinHandler = async (isInvalid: boolean, form: any) => {
           })
           const data = res.data
           //console.log({ data })
-          cookies().set("token", data.token, {
+          const cookieStore = await cookies()
+          cookieStore.set("token", data.token, {
               maxAge: 30 * 60 * 60 * 24, // 30 day
               path: "/",
           })
-          cookies().set("user", data.userId, {
+          await cookies()
+          cookieStore.set("user", data.userId, {
               maxAge: 30 * 60 * 60 * 24, // 30 day
               path: "/",
           })
@@ -185,7 +188,8 @@ async function loadOrdersOfBase(excelId: any) {
 
   try {
 
-    const user = cookies().get("user")
+    const cookieStore = await cookies()
+    const user = cookieStore.get("user")
     if (!user?.value) {
         throw({error: 'not user'})
     }
@@ -262,7 +266,8 @@ async function loadRowsOfBase(excelId: any, orderNumber: any) {
     wsRead = JSON.parse(JSON.stringify(wsRead))
     //console.log({ xlsx })
 
-    const user = cookies().get("user")
+    const cookieStore = await cookies()
+    const user = cookieStore.get("user")
     if (!user?.value) {
         throw({error: 'not user'})
     }
@@ -315,7 +320,8 @@ async function loadPositions(excelIds: any) {
     rows = JSON.parse(JSON.stringify(rows))
     //console.log({rows})
 
-    const user = cookies().get("user")
+    const cookieStore = await cookies()
+    const user = cookieStore.get("user")
     if (!user?.value) {
         throw({error: 'not user'})
     }
@@ -403,7 +409,8 @@ async function updateRowsOfBase() {
 
   try { 
 
-    const user = cookies().get("user")
+    const cookieStore = await cookies()
+    const user = cookieStore.get("user")
 
     let userChat = chats.find((c: any) => c.userId == user?.value)
     const userChatIndex = chats.findIndex((c: any) => {return c.userId == user?.value})
@@ -485,7 +492,8 @@ async function getNumberOfBox(orderN: any) {
   'use server'  
   try { 
 
-    const user = cookies().get("user")
+    const cookieStore = await cookies()
+    const user = cookieStore.get("user")
 
     let userChat = chats.find((c: any) => c.userId == user?.value)
     
@@ -543,7 +551,8 @@ async function getOrdersByName(name: any) {
   'use server'  
   try { 
 
-    const user = cookies().get("user")
+    const cookieStore = await cookies()
+    const user = cookieStore.get("user")
 
     if (!user?.value) {
       throw({error: 'not user'})
@@ -576,7 +585,8 @@ async function getExcelByName(name: any) {
   'use server'  
   try { 
 
-    const user = cookies().get("user")
+    const cookieStore = await cookies()
+    const user = cookieStore.get("user")
 
     if (!user?.value) {
       throw({error: 'not user'})
@@ -601,7 +611,8 @@ async function transferOrders({selectExcel, newExcel}: {selectExcel: any, newExc
   'use server'  
   try { 
 
-    const user = cookies().get("user")
+    const cookieStore = await cookies()
+    const user = cookieStore.get("user")
 
     if (!user?.value) {
       throw({error: 'not user'})

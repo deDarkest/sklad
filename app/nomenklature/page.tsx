@@ -13,7 +13,8 @@ async function getServerSideProps() {
       console.log('LOAD LAYOUT EXCEL NAMES')
       await connectToDB()
 
-      const token = cookies().get("token")
+      const cookieStore = await cookies()
+      const token = cookieStore.get("token")
       //console.log({token})
       if (!token || !token.value) {
         throw({error: 'not token'})

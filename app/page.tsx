@@ -1,5 +1,3 @@
-'use server'
-
 import MainPageComponent from "@/components/MainPageComponent";
 import Excel from "@models/excel";
 import Row from "@models/rows";

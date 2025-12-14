@@ -75,7 +75,18 @@ export const GET = async (request: Request) => {
 
         const pages = pdfDoc.getPages()
         const firstPage = pages[0]
-        const { width, height } = firstPage.getSize()
+        const mm = (v: number) => (v * 72) / 25.4;
+
+        // 10×10 см
+        const LABEL_W = mm(100);
+        const LABEL_H = mm(100);
+
+        // ВАЖНО: теперь страница реально 10×10
+        firstPage.setSize(LABEL_W, LABEL_H);
+
+        // обновим width/height после setSize
+        const width = firstPage.getWidth();
+        const height = firstPage.getHeight();
 
         /*ВАРИАНТ С МАЛЕНЬКИМ КУАРОМ*/
         const response1 = await fetch(`https://clck.ru/--?url=${encodeURI(`${process.env.NEXTAUTH_URL}/unbox?stringForQR=${stringForQR}`)}`)
@@ -88,115 +99,58 @@ export const GET = async (request: Request) => {
         const pngImage = await pdfDoc.embedPng(pngImageBytes)
         const pngDims = pngImage.scale(0.5)
 
-        /*firstPage.drawText('ДОМА ХОРОШО', {
-            x: 50,
-            y: height - 100,
-            size: 48,
-            font: customFontBold,
-            color: rgb(0, 0, 0)
-        })
+        const margin = mm(5);
 
-        firstPage.drawText(excel.date, {
-            x: width - 280,
-            y: height - 100,
-            size: 48,
-            font: customFontBold,
-            color: rgb(0, 0, 0)
-        })
+        // размеры шрифта меньше, чем 36
+        const labelSize = 10;
+        const valueSize = 14;
 
-        firstPage.drawText('Заказ:  ' + box.selectOrder, {
-            x: 60,
-            y: height - 180,
-            size: 36,
+        let y = height - margin - valueSize; // старт сверху
+
+        const drawRow = (label: string, value: string) => {
+        firstPage.drawText(label, {
+            x: margin,
+            y,
+            size: labelSize,
             font: customFont,
-            color: rgb(0, 0, 0)
-        })
+            color: rgb(0, 0, 0),
+        });
 
-        firstPage.drawText('Место: ' + box.numBox.toString(), {
-            x: 60,
-            y: height - 240,
-            size: 36,
-            font: customFont,
-            color: rgb(0, 0, 0)
-        })
+        firstPage.drawText(value, {
+            x: mm(45), // колонка значений
+            y: y - 1,
+            size: valueSize,
+            font: customFontBold,
+            color: rgb(0, 0, 0),
+        });
+
+        y -= mm(12); // шаг строки
+        };
+
+        drawRow('дата', excel.date);
+
+        drawRow(
+        'орг',
+        (row.structure['Организация'] && row.structure['Организация'] !== ''
+            ? row.structure['Организация'].split(' ООО')[0]
+            : excel.for == 'АВРОРА 25-26'
+            ? 'МЕБЕЛЬ'
+            : excel.for) as string
+        );
+
+        drawRow('заказ', box.selectOrder);
+        drawRow('место', box.numBox.toString());
+
+        const qrSize = mm(35);
 
         firstPage.drawImage(pngImage, {
-            x: width - 200,
-            y: height - 240,
-            width: pngDims.width,
-            height: pngDims.height,
-        })*/
+            x: width - margin - qrSize,
+            y: margin,
+            width: qrSize,
+            height: qrSize,
+        });
 
-
-        firstPage.drawText('дата отгрузки', {
-            x: 36,
-            y: height / 2 + 85,
-            size: 36,
-            font: customFont,
-            color: rgb(0, 0, 0)
-        })
-        firstPage.drawText(excel.date, {
-            x: width / 2 - 100,
-            y: height / 2 + 83,
-            size: 36,
-            font: customFontBold,
-            color: rgb(0, 0, 0)
-        })
-        
-        firstPage.drawText('организация', {
-            x: 42,
-            y: height / 2 + 18,
-            size: 36,
-            font: customFont,
-            color: rgb(0, 0, 0)
-        })
-        firstPage.drawText(row.structure['Организация'] && row.structure['Организация'] != '' ? row.structure['Организация'].split(' ООО')[0] : excel.for == 'АВРОРА 25-26' ? 'МЕБЕЛЬ' : excel.for, {
-            x: width / 2 - 100,
-            y: height / 2 + 16,
-            size: 36,
-            font: customFontBold,
-            color: rgb(0, 0, 0)
-        })
-
-        firstPage.drawText('заказ №', {
-            x: 74,
-            y: height / 2 - 60,
-            size: 36,
-            font: customFont,
-            color: rgb(0, 0, 0)
-        })
-        firstPage.drawText(box.selectOrder, {
-            x: width / 2 - 100,
-            y: height / 2 - 58,
-            size: 36,
-            font: customFontBold,
-            color: rgb(0, 0, 0)
-        })
-
-        firstPage.drawText('место №', {
-            x: 70,
-            y: height / 2 - 127,
-            size: 36,
-            font: customFont,
-            color: rgb(0, 0, 0)
-        })
-        firstPage.drawText(box.numBox.toString(), {
-            x: width / 2 - 100,
-            y: height / 2 - 125,
-            size: 36,
-            font: customFontBold,
-            color: rgb(0, 0, 0)
-        })
-
-        
-        firstPage.drawImage(pngImage, {
-            x: firstPage.getWidth() - pngDims.width - 50,
-            y: firstPage.getHeight() / 2 - pngDims.height + 60,
-            width: pngDims.width,
-            height: pngDims.height,
-          })
-
-        const pdfBytes = await pdfDoc.save()
+        const pdfBytes = await pdfDoc.save() as any
 
         return new Response(pdfBytes)
     } catch (error: any) {

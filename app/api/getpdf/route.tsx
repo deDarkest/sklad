@@ -135,6 +135,8 @@ export const GET = async (request: Request) => {
             ? row.structure['Организация'].split(' ООО')[0]
             : excel.for == 'АВРОРА 25-26'
             ? 'МЕБЕЛЬ'
+            : excel.for == 'Импульс Мебель'
+            ? 'Импульс'
             : excel.for) as string
         );
 

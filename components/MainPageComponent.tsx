@@ -171,7 +171,7 @@ export default function MainPageComponent({
     const [datas, setDatas] = useState([] as any)
     const [settingGraphs, setSettingGraph] = useState(true)
     
-    useEffect(() => {
+    /*useEffect(() => {
         const fetchGet = () => {
             try {
                 if(excels) {
@@ -264,7 +264,7 @@ export default function MainPageComponent({
             }
         }
         fetchGet()
-    }, [settingGraphs])
+    }, [settingGraphs])*/
 
     
     const [selectStatusValue, setSelectStatusValue] = useState("all")
@@ -284,7 +284,7 @@ export default function MainPageComponent({
     }, [newExcel])
 
     const [loadExcel, setLoadExcel] = useState({filename: '', for: '', date: ''} as any)
-    const companies = ['АВРОРА', 'АВРОРА МЗ', 'АМЗ', 'Сердце Дома', 'КЗ', 'ДОМА ХОРОШО', 'АВРОРА 25-26', 'КЗ 25-26']
+    const companies = ['АВРОРА', 'АВРОРА МЗ', 'АМЗ', 'Сердце Дома', 'КЗ', 'ДОМА ХОРОШО', 'АВРОРА 25-26', 'КЗ 25-26', 'Импульс Мебель']
     const isInvalidLoadExcel = useMemo(() => {
         if (!loadExcel.for || !loadExcel.date) return true
 

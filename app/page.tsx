@@ -51,7 +51,7 @@ async function getServerSideProps() {
 
       let newExcels = [] as any
 
-      for(let excel of excels) {
+      /*for(let excel of excels) {
         let orders = await Row.aggregate([
           {
             $match: { 
@@ -71,11 +71,11 @@ async function getServerSideProps() {
         orders = JSON.parse(JSON.stringify(orders))
 
         newExcels.push({...excel, orders})
-      }
+      }*/
 
       //console.log({newExcels: JSON.stringify(newExcels)})
 
-      return {excels: newExcels, isValid: true, auth, basicUrl: process.env.NEXTAUTH_URL, auths}
+      return {excels: excels, isValid: true, auth, basicUrl: process.env.NEXTAUTH_URL, auths}
 
   } catch (error) {
     console.log('LOAD LAYOUT GSSP', error)

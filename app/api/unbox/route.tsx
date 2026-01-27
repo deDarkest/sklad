@@ -32,7 +32,13 @@ export const GET = async (req: NextRequest) => {
 
         const order = {
             date: excel.date,
-            for: row.structure['Организация'] && row.structure['Организация'] != '' ? row.structure['Организация'].split(' ООО')[0] : excel.for,
+            for: row.structure['Организация'] && row.structure['Организация'] !== ''
+                ? row.structure['Организация'].split(' ООО')[0]
+                : excel.for == 'АВРОРА 25-26'
+                ? 'МЕБЕЛЬ'
+                : excel.for == 'Импульс Мебель'
+                ? 'Импульс'
+                : excel.for,
             orderNum: stringForQR.orderNum,
             numBox: `${stringForQR.numBox} из ${countBoxes}`
         }

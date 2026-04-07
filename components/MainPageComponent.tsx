@@ -284,7 +284,7 @@ export default function MainPageComponent({
     }, [newExcel])
 
     const [loadExcel, setLoadExcel] = useState({filename: '', for: '', date: ''} as any)
-    const companies = ['АВРОРА 25-26', 'КЗ 25-26', 'Импульс Мебель', 'ИП Павлов', 'КВАНТУМ', 'КЗ', 'АВРОРА', 'АВРОРА МЗ', 'АМЗ', 'Сердце Дома', 'ДОМА ХОРОШО']
+    const companies = ['Импульс Мебель', 'ИП Павлов', 'КЗ 2026', 'АВРОРА 25-26', 'КЗ 25-26', 'КВАНТУМ', 'КЗ', 'АВРОРА', 'АВРОРА МЗ', 'АМЗ', 'Сердце Дома', 'ДОМА ХОРОШО']
     const isInvalidLoadExcel = useMemo(() => {
         if (!loadExcel.for || !loadExcel.date) return true
 

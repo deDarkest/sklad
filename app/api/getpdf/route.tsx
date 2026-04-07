@@ -137,6 +137,8 @@ export const GET = async (request: Request) => {
             ? 'МЕБЕЛЬ'
             : excel.for == 'Импульс Мебель'
             ? 'Импульс'
+            : excel.for == 'КЗ 2026'
+            ? 'КЗ'
             : excel.for) as string
         );
 

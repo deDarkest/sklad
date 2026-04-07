@@ -38,6 +38,8 @@ export const GET = async (req: NextRequest) => {
                 ? 'МЕБЕЛЬ'
                 : excel.for == 'Импульс Мебель'
                 ? 'Импульс'
+                : excel.for == 'КЗ 2026'
+                ? 'КЗ'
                 : excel.for,
             orderNum: stringForQR.orderNum,
             numBox: `${stringForQR.numBox} из ${countBoxes}`

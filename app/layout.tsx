@@ -23,7 +23,7 @@ export default async function RootLayout({
   const props = await getServerSideProps()
   //console.log(props)
   return (
-    <html lang='en'>
+    <html lang='ru'>
       <head>
         <link rel="shortcut icon" href="/assets/favicon.ico" />
         <title>{'Vцентре Склад'}</title>

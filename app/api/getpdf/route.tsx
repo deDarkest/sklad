@@ -132,7 +132,7 @@ export const GET = async (request: Request) => {
         drawRow(
         'орг',
         (row.structure['Организация'] && row.structure['Организация'] !== ''
-            ? row.structure['Организация'].split(' ООО')[0]
+            ? (row.structure['Организация'].indexOf(' ООО') ? row.structure['Организация'].split(' ООО')[0] : row.structure['Организация'].indexOf('ООО ') ? row.structure['Организация'].split('ООО ')[1] : row.structure['Организация'])
             : excel.for == 'АВРОРА 25-26'
             ? 'МЕБЕЛЬ'
             : excel.for == 'Импульс Мебель'
